@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EmployeeService } from '../employee';
@@ -18,7 +18,8 @@ export class EmployeeDetail implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -31,14 +32,17 @@ export class EmployeeDetail implements OnInit {
   loadEmployee(id: number): void {
     this.loading = true;
     this.error = '';
+    this.cdr.detectChanges();
     this.employeeService.getEmployee(id).subscribe({
       next: (data) => {
         this.employee = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Failed to load employee details';
         this.loading = false;
+        this.cdr.detectChanges();
         console.error(err);
       }
     });

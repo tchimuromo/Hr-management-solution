@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -23,7 +23,8 @@ export class EmployeeForm implements OnInit {
     private fb: FormBuilder,
     private employeeService: EmployeeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.employeeForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
@@ -61,10 +62,12 @@ export class EmployeeForm implements OnInit {
           salary: employee.salary
         });
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Failed to load employee';
         this.loading = false;
+        this.cdr.detectChanges();
         console.error(err);
       }
     });
