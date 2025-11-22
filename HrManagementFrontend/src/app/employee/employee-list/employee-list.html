@@ -1,0 +1,49 @@
+<div class="employee-list-container">
+  <h2>Employee Management</h2>
+  
+  <div class="header-actions">
+    <button class="btn btn-primary" (click)="createEmployee()">Add New Employee</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table class="employee-table" *ngIf="!loading && employees.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Hire Date</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.firstName }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.phone || '-' }}</td>
+        <td>{{ employee.department }}</td>
+        <td>{{ employee.position }}</td>
+        <td>{{ employee.hireDate | date:'shortDate' }}</td>
+        <td>{{ employee.salary | currency }}</td>
+        <td class="actions">
+          <button class="btn btn-info" (click)="viewEmployee(employee.id)">View</button>
+          <button class="btn btn-warning" (click)="editEmployee(employee.id)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && employees.length === 0" class="no-data">
+    No employees found. Click "Add New Employee" to create one.
+  </div>
+</div>

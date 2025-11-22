@@ -1,0 +1,51 @@
+<div class="employee-detail-container">
+  <h2>Employee Details</h2>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="employee && !loading" class="employee-details">
+    <div class="detail-row">
+      <label>ID:</label>
+      <span>{{ employee.id }}</span>
+    </div>
+    <div class="detail-row">
+      <label>First Name:</label>
+      <span>{{ employee.firstName }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Last Name:</label>
+      <span>{{ employee.lastName }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Email:</label>
+      <span>{{ employee.email }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Phone:</label>
+      <span>{{ employee.phone || '-' }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Department:</label>
+      <span>{{ employee.department }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Position:</label>
+      <span>{{ employee.position }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Hire Date:</label>
+      <span>{{ employee.hireDate | date:'longDate' }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Salary:</label>
+      <span>{{ employee.salary | currency }}</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" (click)="goBack()">Back to List</button>
+      <button class="btn btn-warning" (click)="editEmployee()">Edit</button>
+      <button class="btn btn-danger" (click)="deleteEmployee()">Delete</button>
+    </div>
+  </div>
+</div>
